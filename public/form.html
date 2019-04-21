@@ -1,0 +1,20 @@
+<html>
+	<head>
+		<title>Form Validation</title>
+	</head>
+	<body>
+		<input type="text" id="name">
+		<button class="btn" onClick="validate()">Validate</button>
+		<script>
+			function validate(){
+				let nameRE=/^[a-zA-Z]{1,10}\s[a-zA-Z]{1}\s[a-zA-Z]{1,10}/;
+				let name=document.querySelector("#name").value;
+				if(!(nameRE.test(name))) {
+					alert("Invalid Name");
+				}
+				else{
+					alert("Congrats! Its a valid name");
+				}
+			}
+		</script>
+	</body>
