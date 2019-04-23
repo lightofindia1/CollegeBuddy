@@ -14,10 +14,16 @@ $(document).ready(function(){
 	}
 	$("#signup").submit(function(event){
 		event.preventDefault();
+		var username=$("#username").removeClass("is-error").val();
 		var email=$("#email").removeClass("is-error").val();
 		var password=$("#password").removeClass("is-error").val();
 		var password2=$("#password2").removeClass("is-error").val();
-		if(!isEmail(email)){
+		if(username.length<3){
+			$("#username").addClass("is-error").effect("shake", {times:5,distance:50}, 500 ).focus();
+			toastr.clear();
+			toastr.error('Please enter your full name!', 'Invalid Name');
+		}
+		else if(!isEmail(email)){
 			$("#email").addClass("is-error").effect("shake", {times:5,distance:50}, 500 ).focus();
 			toastr.clear();
 			toastr.error('Please enter valid email!', 'Invalid Email ID');
@@ -36,9 +42,9 @@ $(document).ready(function(){
 			closeForm();
 			setTimeout(function(){
 				$.ajax({
-					url:"http://localhost:2000/api/",
+					url:"/api",
 					type:"POST",
-					data:{"op":"signup","email":email,"password":password},
+					data:{"op":"signup","username":username,"email":email,"password":password},
 					success:function(response){
 						console.log(response);
 						try{

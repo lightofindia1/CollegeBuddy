@@ -1,93 +1,155 @@
 <!DOCTYPE html>
-<html lang="en" dir="ltr">
-  <head>
-    <meta charset="utf-8">
-    <title>Notes | CollegeBuddy</title>
-    <link rel="stylesheet" href="assets/libs/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/css/style.css">
-    <link rel="stylesheet" href="assets/css/notes.css">
-  </head>
-  <body>
-    <nav class="navbar navbar-dark fixed-top bg-primary flex-md-nowrap p-2 shadow">
-      <a class="navbar-brand col-sm-3 col-md-2 mr-0" href="#">CollegeBuddy</a>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Notes | CollegeBuddy</title>
+  <link rel="stylesheet" href="assets/libs/iconfonts/mdi/css/materialdesignicons.min.css" />
+  <link rel="stylesheet" href="assets/css/dashboard.css">
+  <link rel="stylesheet" href="assets/css/notes.css">
+  <link rel="shortcut icon" href="assets/img/icon.png" />
+</head>
 
-      <ul class="navbar-nav px-3">
-        <li class="nav-item text-nowrap">
-          <a class="nav-link" href="login.html">Sign out</a>
-        </li>
-      </ul>
-    </nav>
-    <div class="container-fluid">
-      <div class="row">
-        <nav class="col-md-2 d-none d-md-block bg-light mt-5">
-          <div class="sidebar-sticky">
-            <div class=" text-center p-3">
-				<img src="assets/img/me.png" class="img-responsive w-50"><br>
-				Manikiran P<br><br>
-				<a href="settings.html" class="btn btn-success">Settings</a> <a class="btn btn-danger" href="login.html">Logout</a>
+<body>
+  <div class="container-scroller">
+    <!-- partial:partials/_navbar.html -->
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="/dashboard">
+          <img src="assets/img/logo-dark.png" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="/dashboard">
+          <img src="assets/img/icon.png" alt="logo" />
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown d-none d-xl-inline-block">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <span class="profile-text">Hello, <%= username %> !</span>
+              <img class="img-xs rounded-circle" src="assets/img/me.png" alt="Profile image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <a class="dropdown-item mt-2" href="/settings">
+                Settings
+              </a>
+              <a class="dropdown-item" href="/logout">
+                Sign Out
+              </a>
             </div>
-            <ul class="nav flex-column">
-              <li class="nav-item ">
-                <a class="nav-link" href="dashboard.html">
-                  <span class="fa fa-home"></span>
-                  Dashboard
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link active" href="notes.html">
-                  <span class="fa fa-file"></span>
-                  Notes <span class="sr-only">(current)</span>
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="clubs.html">
-                  <span class="fa fa-users"></span>
-                  Clubs
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="events.html">
-                  <span data-feather="users"></span>
-                  Events
-                </a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="lost.html">
-                  <span data-feather="users"></span>
-                  Lost & Found
-                </a>
-              </li>
-            </ul>
-          </div>
-        </nav>
-		  <div class="col-md-10 mt-5 pt-2  bg-dark">
-			<div class="row">
-				<div class="col-md-12">
-					<div class="filemanager">
-
-						<div class="search">
-							<input type="search" placeholder="Find a file.." />
-						</div>
-
-						<div class="breadcrumbs"></div>
-
-						<ul class="data"></ul>
-
-						<div class="nothingfound">
-							<div class="nofiles"></div>
-							<span>No files here.</span>
-						</div>
-
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <!-- partial -->
+    <div class="container-fluid page-body-wrapper">
+      <!-- partial:partials/_sidebar.html -->
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="user-wrapper">
+                <div class="profile-image">
+                  <img src="assets/img/me.png" alt="profile image">
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name"><%= username %></p>
+                  <div>
+                    <small class="designation text-muted">Student</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <i class="menu-icon mdi mdi-collage"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/notes">
+              <i class="menu-icon mdi mdi-file-multiple"></i>
+              <span class="menu-title">Notes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/clubs">
+              <i class="menu-icon mdi mdi-account-multiple"></i>
+              <span class="menu-title">Clubs</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/events">
+              <i class="menu-icon mdi mdi-cards"></i>
+              <span class="menu-title">Events</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lostandfound">
+              <i class="menu-icon mdi mdi-map-marker"></i>
+              <span class="menu-title">Lost & Found</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/settings">
+              <i class="menu-icon mdi mdi-tune"></i>
+              <span class="menu-title">Settings</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="menu-icon mdi mdi-logout"></i>
+              <span class="menu-title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <!-- partial -->
+      <div class="main-panel">
+        <div class="content-wrapper">
+          <div class="row">
+            <div class="col-md-12">
+				<div class="filemanager">
+					<div class="search">
+						<input type="search" placeholder="Find a file.." />
+					</div>
+					<div class="breadcrumbs"></div>
+					<ul class="data"></ul>
+					<div class="nothingfound">
+						<div class="nofiles"></div>
+						<span>No files here.</span>
 					</div>
 				</div>
-			</div>
-		  </div>
+            </div>
+          </div>
+        </div>
+        <!-- content-wrapper ends -->
+        <!-- partial:partials/_footer.html -->
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+				Made with <i class="mdi mdi-heart text-danger"></i> by <strong>Manikiran</strong>
+            </span>
+          </div>
+        </footer>
+        <!-- partial -->
       </div>
+      <!-- main-panel ends -->
     </div>
+    <!-- page-body-wrapper ends -->
+  </div>
+  <!-- container-scroller -->
 
-    <script type="text/javascript" src="assets/libs/jquery/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="assets/libs/bootstrap/js/popper.min.js"></script>
-    <script type="text/javascript" src="assets/libs/bootstrap/js/bootstrap.min.js"></script>
-    <script type="text/javascript" src="assets/js/notes.js"></script>
-  </body>
+  <!-- plugins:js -->
+  <script src="assets/js/vendor.bundle.js"></script>
+  <script src="assets/js/vendor.bundle.addons.js"></script>
+  <script src="assets/js/misc.js"></script>
+  <script type="text/javascript" src="assets/js/notes.js"></script>
+</body>
+
 </html>

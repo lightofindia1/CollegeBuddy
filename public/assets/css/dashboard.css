@@ -1,9 +1,3 @@
-/*------------------------------------------------------------------
- [Master Stylesheet]
-
-  Project:	Star Admin Bootstrap Template [Free Version]
-  Version:	2.0.0
--------------------------------------------------------------------*/
 /*-------------------------------------------------------------------
   ===== Table of Contents =====
 
@@ -13870,7 +13864,7 @@ input:focus {
 /* Navbar */
 .navbar.default-layout {
   font-family: "Poppins", sans-serif;
-  background: linear-gradient(120deg, #00e4d0, #5983e8);
+  background: linear-gradient(120deg, #0062e6, #0049ab);
   transition: background 0.25s ease;
   -webkit-transition: background 0.25s ease;
   -moz-transition: background 0.25s ease;
@@ -14294,7 +14288,7 @@ pre {
 
 .img-xs, .table td img,
 .table th img {
-  width: 37px;
+  width: 44px;
   height: 37px; }
 
 .img-ss {
@@ -14570,7 +14564,7 @@ pre {
   .card-weather .card-body {
     background: #ffffff; }
     .card-weather .card-body:first-child {
-      background: url("../images/samples/weather.svg") no-repeat center;
+      background: url("../img/weather.svg") no-repeat center;
       background-size: cover; }
   .card-weather .weather-date-location {
     padding: 0 0 38px; }
@@ -16302,3 +16296,7 @@ ul {
     border-left: 3px solid rgba(255, 255, 255, 0.2); } }
 
 /*# sourceMappingURL=maps/style.css.map */
+
+.toast-top-right{
+	top:70px !important;
+}

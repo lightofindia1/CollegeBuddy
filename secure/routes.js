@@ -1,15 +1,21 @@
-const path = require('path')
-var express = require('express')
-var router = express.Router()
+const path = require('path');
+var express = require('express');
+var router = express.Router();
+var admin = require('firebase-admin');
+var serviceAccount = require("./collegebuddy2019-firebase-adminsdk-0vpti-3bc7ce4404.json");
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: "https://collegebuddy2019.firebaseio.com"
+});
 module.exports = function (firebase) {
 	var fn=require("./functions.js");
-	router.get('/', (req, res) => res.sendFile(path.resolve("public/index.html")))
+	router.get('/', (req, res) => res.render(path.resolve("public/index.html")))
 	router.get('/login', (req, res) => {
 		if(fn.checkLogin(req,firebase)){
 			res.redirect("/dashboard");
 		}
 		else{
-			res.sendFile(path.resolve("public/login.html"))
+			res.render(path.resolve("public/login.html"))
 		}
 	});
 	router.get('/signup', (req, res) => {
@@ -17,7 +23,7 @@ module.exports = function (firebase) {
 			res.redirect("/dashboard");
 		}
 		else{
-			res.sendFile(path.resolve("public/signup.html"));
+			res.render(path.resolve("public/signup.html"));
 		}
 	});
 
@@ -37,65 +43,107 @@ module.exports = function (firebase) {
 		});
 	});
 	router.get("/dashboard",function(req, res){
-		if(fn.checkLogin(req,firebase)){
-			res.sendFile(path.resolve("public/dashboard.html"));
-		}
-		else{
-			res.redirect("/login");
-		}
+		fn.authRoute(req,res,firebase,"public/dashboard.html");
+	});
+	router.get("/notes",function(req, res){
+		fn.authRoute(req,res,firebase,"public/notes.html");
+	});
+	router.get("/settings",function(req, res){
+		fn.authRoute(req,res,firebase,"public/settings.html");
 	});
 	router.post('/api',(req, res) => {
 		res.setHeader('Access-Control-Allow-Origin', '*');
-		let response={"code":"INV_RQT","msg":"Invalid Request"};
 		let response_sent=false;
 		try{
 			let op=req.body.op;
 			if(op){
 				if(op=="login"){
 					firebase.auth().signInWithEmailAndPassword(req.body.email,req.body.password).catch((err)=>{
-						response.code=err.code;
-						response.msg=err.message;
-						res.send(JSON.stringify(response));
+						fn.sendResp(res,err.code,err.message);
 						response_sent=true;
 					});
 					firebase.auth().onAuthStateChanged(function(user) {
 						if (user&&(!response_sent)) {
 							user.getIdToken().then(function(idToken) {
-								response.code="LOGIN_SUC";
-								response.msg="Login Successfull";
 								req.session.userId=idToken;
-								res.send(JSON.stringify(response));
+								req.session.displayName=user.displayName;
+								fn.sendResp(res,"LOGIN_SUC","Login Successfull");
+								response_sent=true;
 							}).catch((err)=>{
 							});
 						}
 					});
 				}
 				else if(op=="signup"){
-					firebase.auth().createUserWithEmailAndPassword(req.body.email,req.body.password).then((user)=>{
-						response.code="SIGNUP_SUC";
-						response.msg="Signup Successfull";
-						res.send(JSON.stringify(response));
+					var user=null;
+					firebase.auth().createUserWithEmailAndPassword(req.body.email,req.body.password).then(()=>{
+						user = firebase.auth().currentUser;
+						user.sendEmailVerification();
+					}).then(()=>{
+						user.updateProfile({
+							displayName: req.body.username
+						}).then(function(){
+							req.session.displayName=req.body.username;
+							fn.sendResp(res,"SIGNUP_SUC","Signup Successfull");
+						}).catch((err)=>{
+							fn.sendResp(res,err.code,err.message);
+						});
 					}).catch((err)=>{
-						response.code=err.code;
-						response.msg=err.message;
-						res.send(JSON.stringify(response));
+						fn.sendResp(res,err.code,err.message);
+					});
+				}
+				else if(op=="update_username"){
+					var user = firebase.auth().currentUser;
+					var credential = firebase.auth.EmailAuthProvider.credential(
+					  firebase.auth().currentUser.email,
+					  req.body.password
+					);
+					user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+						user.updateProfile({
+							displayName: req.body.username
+						}).then(function(){
+							req.session.displayName=req.body.username;
+							fn.sendResp(res,"UPDATE_USERNAME_SUC","Username Updated Successfully");
+						}).catch((err)=>{
+							fn.sendResp(res,err.code,err.message);
+						});
+					}).catch((err)=>{
+						fn.sendResp(res,err.code,err.message);
+					});
+				}
+				else if(op=="update_password"){
+					var user = firebase.auth().currentUser;
+					var credential = firebase.auth.EmailAuthProvider.credential(
+					  firebase.auth().currentUser.email,
+					  req.body.old_password
+					);
+					user.reauthenticateAndRetrieveDataWithCredential(credential).then(function() {
+						admin.auth().updateUser(firebase.auth().currentUser.uid,{
+							password: req.body.new_password
+						}).then(function(userRecord){
+							console.log(userRecord.toJSON());
+							fn.sendResp(res,"UPDATE_PASSWORD_SUC","Password Updated Successfully");
+						}).catch((err)=>{
+							fn.sendResp(res,err.code,err.message);
+						});
+					}).catch((err)=>{
+						fn.sendResp(res,err.code,err.message);
 					});
 				}
 				else{
-					res.send(JSON.stringify(response));
+					fn.sendResp(res);
 				}
 			}
 			else{
-				res.send(JSON.stringify(response));
+				fn.sendResp(res);
 			}
 		}catch(err){
-			response["msg"]=err;
-			res.send(JSON.stringify(response));
+			fn.sendResp(res,msg=err);
 			console.log("Something went wrong!");
 		}
 	});
 	router.get('*', function(req, res){
-	  res.status(404).sendFile(path.resolve("public/404.html"));
+	  res.status(404).render(path.resolve("public/error.html"),{errcode:"404",errmsg:"Page Not Found"});
 	});
 	return router;
 }

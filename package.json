@@ -28,8 +28,10 @@
   "homepage": "https://github.com/lightofindia1/CollegeBuddy#readme",
   "dependencies": {
     "body-parser": "^1.18.3",
+    "ejs": "^2.6.1",
     "express": "^4.16.4",
     "express-session": "^1.16.1",
-    "firebase": "^5.10.0"
+    "firebase": "^5.10.0",
+    "firebase-admin": "^7.3.0"
   }
 }

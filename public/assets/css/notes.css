@@ -1,5 +1,9 @@
 @charset "utf-8";
 
+:root {
+  --notes-font-color: #000; 
+  --notes-font-inverse-color: #fff; 
+}
 
 /*-------------------------
 	File manager
@@ -10,7 +14,7 @@
 	width: 95%;
 	max-width:1340px;
 	position: relative;
-	margin: 100px auto 50px;
+	margin: 50px auto 50px;
 }
 
 @media all and (max-width: 965px) {
@@ -27,7 +31,7 @@
 
 
 .filemanager .breadcrumbs {
-	color: #ffffff;
+	color: var(--notes-font-color);
 	margin-left:20px;
 	font-size: 24px;
 	font-weight: 700;
@@ -35,7 +39,7 @@
 }
 
 .filemanager .breadcrumbs a:link, .breadcrumbs a:visited {
-	color: #ffffff;
+	color: var(--notes-font-color);
 	text-decoration: none;
 }
 
@@ -62,7 +66,7 @@
 	cursor: pointer;
 	right: 0;
 	font-size: 17px;
-	color: #ffffff;
+	color: var(--notes-font-color);
 	display: block;
 	width: 40px;
 	height: 40px;
@@ -75,32 +79,32 @@
 	width: 10px;
 	height: 11px;
 	border-radius: 50%;
-	border: 2px solid #ffffff;
-	right: 8px;
+	border: 2px solid var(--notes-font-color);
+	right: 18px;
 }
 
 .filemanager .search:after {
 	content: '';
 	width: 3px;
 	height: 10px;
-	background-color: #ffffff;
+	background-color: var(--notes-font-color);
 	border-radius: 2px;
 	position: absolute;
 	top: 23px;
-	right: 6px;
-	-webkit-transform: rotate(-45deg);
-	transform: rotate(-45deg);
+	right: 15px;
+	-webkit-transform: rotate(-35deg);
+	transform: rotate(-35deg);
 }
 
 .filemanager .search input[type=search] {
 	border-radius: 2px;
-	color: #4D535E;
-	background-color: #FFF;
+	color: var(--notes-font-inverse-color);
+	background-color: #a09f9f;
 	width: 250px;
 	height: 44px;
 	margin-left: -215px;
 	padding-left: 20px;
-	text-decoration-color: #4d535e;
+	text-decoration-color: var(--notes-font-inverse-color);
 	font-size: 16px;
 	font-weight: 400;
 	line-height: 20px;
@@ -221,7 +225,7 @@
 .filemanager .nothingfound .nofiles:after {
 	content: '×';
 	position: absolute;
-	color: #ffffff;
+	color: var(--notes-font-color);
 	font-size: 14em;
 	margin-right: 0.092em;
 	right: 0;
@@ -229,7 +233,7 @@
 
 .filemanager .nothingfound span {
 	margin: 0 auto auto 6.8em;
-	color: #ffffff;
+	color: var(--notes-font-color);
 	font-size: 16px;
 	font-weight: 700;
 	line-height: 20px;
