@@ -1,4 +1,8 @@
 const path = require('path');
+const client = require('apixu');
+const config = client.config;
+config.apikey = "80898612d8814943b6d82455192404";
+const apixu = new client.Apixu(config);
 var express = require('express');
 var router = express.Router();
 var admin = require('firebase-admin');
@@ -43,13 +47,40 @@ module.exports = function (firebase) {
 		});
 	});
 	router.get("/dashboard",function(req, res){
-		fn.authRoute(req,res,firebase,"public/dashboard.html");
+		let dashinfo=require("./weather.json");
+		apixu.forecast("auto:ip",7).then((forecast) => {
+			fn.authRoute(req,res,firebase,"public/dashboard.html",forecast);
+		}, (err) => {
+			fn.authRoute(req,res,firebase,"public/dashboard.html",dashinfo);
+		});
 	});
 	router.get("/notes",function(req, res){
 		fn.authRoute(req,res,firebase,"public/notes.html");
 	});
+	router.get("/lostandfound",function(req, res){
+		fn.authRoute(req,res,firebase,"public/lostandfound.html");
+	});
 	router.get("/settings",function(req, res){
 		fn.authRoute(req,res,firebase,"public/settings.html");
+	});
+	router.get('/api',(req,res) => {
+		let op=req.query.op;
+		if(op){
+			if(op=="get_lostandfound"){
+				firebase.database().ref('/lostandfound').once('value').then(function(snapshot) {
+					fn.sendResp(res,"GET_LOSTANDFOUND_SUC","Fetched Posts successfully",fn.reverseObject(snapshot.val()));
+				}).catch((err)=>{
+					fn.sendResp(res,"GET_LOSTANDFOUND_ERR","Failed to fetch posts");
+				});
+				
+			}
+			else{
+				fn.sendResp(res);
+			}
+		}
+		else{
+			fn.sendResp(res);
+		}
 	});
 	router.post('/api',(req, res) => {
 		res.setHeader('Access-Control-Allow-Origin', '*');
@@ -128,6 +159,16 @@ module.exports = function (firebase) {
 						});
 					}).catch((err)=>{
 						fn.sendResp(res,err.code,err.message);
+					});
+				}
+				else if(op=="post_lostandfound"){
+					firebase.database().ref('/lostandfound').push({"postUser":firebase.auth().currentUser.uid,"postTitle": req.body.post_title,"postMsg":req.body.post_msg,"postType":req.body.post_type,"postContact":req.body.post_contact}, function(error) {
+						if (error){
+							fn.sendResp(res,"POST_LOSTANDFOUND_ERR","Unable to Save New Post");
+						}
+						else{
+							fn.sendResp(res,"POST_LOSTANDFOUND_SUC","Post Added Successfully");
+						}
 					});
 				}
 				else{

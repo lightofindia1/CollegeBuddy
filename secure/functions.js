@@ -34,16 +34,34 @@ var fn={
 			}
 		}
 	},
-	authRoute:function(req,res,firebase,filepath){
+	authRoute:function(req,res,firebase,filepath,params={}){
+		params["username"]=req.session.displayName||"noname";
 		if(fn.checkLogin(req,firebase)){
-			res.render(path.resolve(filepath),{username:req.session.displayName||"noname"});
+			res.render(path.resolve(filepath),params);
 		}
 		else{
 			res.redirect("/login?redirect="+req.url);
 		}
 	},
-	sendResp:function(res,code="INV_RQT",msg="Invalid Request"){
-		res.send(JSON.stringify({"code":code,"msg":msg}));
+	sendResp:function(res,code="INV_RQT",msg="Invalid Request",value={}){
+		if(value){
+			res.send(JSON.stringify({"code":code,"msg":msg,"value":value}));
+		}
+		else{
+			res.send(JSON.stringify({"code":code,"msg":msg}));
+		}
+	},
+	reverseObject:function(object) {
+		var newObject = {};
+		var keys = [];
+		for (var key in object) {
+			keys.push(key);
+		}
+		for (var i = keys.length - 1; i >= 0; i--) {
+			var value = object[keys[i]];
+			newObject[keys[i]]= value;
+		}
+		return newObject;
 	}
 }
 module.exports = fn;
