@@ -2,6 +2,13 @@
 
 Relax. Your college's communication problems? We've got that. CollegeBuddy brings all your college communication together in one place. Get a public platform to discuss and share your opinions. Live track the goals and progress of each club. View leaderboard of best performing clubs and lots more.
 
+[![Build Status](https://travis-ci.org/joemccann/dillinger.svg?branch=master)](https://collegebuddy2019.herokuapp.com)
+
+## Screenshot
+![CollegeBuddy Homepage Screenshot](https://raw.githubusercontent.com/lightofindia1/CollegeBuddy/master/screenshots/homepage.png)
+
+[View Live Demo](https://collegebuddy2019.herokuapp.com)
+
 ## Features
 
   - Notes Manager
