@@ -26,7 +26,8 @@ CollegeBuddy uses a number of open source projects to work properly:
 * [node.js]
 * [Express]
 * [jQuery]
-* [firebase]
+* [Firebase]
+* [Apixu]
 
 
 ## Installation
@@ -41,8 +42,14 @@ $ npm install
 $ node app.js
 ```
 
+## Authors
+
+* **Chandana T S** - *Initial Frontend Work* - [chandanaTS](https://github.com/chandanaTS)
+* **Manikiran P** - *Dashboard and Backend* - [lightofindia1](https://github.com/lightofindia1)
+
    [node.js]: <http://nodejs.org>
    [Twitter Bootstrap]: <http://twitter.github.com/bootstrap/>
    [jQuery]: <http://jquery.com>
-   [firebase]: <https://firebase.google.com>
+   [Firebase]: <https://firebase.google.com>
    [express]: <http://expressjs.com>
+   [Apixu]: <https://www.apixu.com>
