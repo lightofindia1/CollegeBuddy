@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <title>Settings | CollegeBuddy</title>
+  <link rel="stylesheet" href="/assets/libs/iconfonts/mdi/css/materialdesignicons.min.css" />
+  <link rel="stylesheet" href="/assets/libs/toastr/toastr.min.css">
+  <link rel="stylesheet" href="/assets/css/preloader.css">
+  <link rel="stylesheet" href="/assets/css/dashboard.css">
+  <link rel="shortcut icon" href="/assets/img/icon.png" />
+</head>
+
+<body>
+  <div id="preloader"><div class="preloader"></div></div>
+  <div class="container-scroller">
+    <nav class="navbar default-layout col-lg-12 col-12 p-0 fixed-top d-flex flex-row">
+      <div class="text-center navbar-brand-wrapper d-flex align-items-top justify-content-center">
+        <a class="navbar-brand brand-logo" href="/dashboard">
+          <img src="/assets/img/logo-dark.png" alt="logo" />
+        </a>
+        <a class="navbar-brand brand-logo-mini" href="/dashboard">
+          <img src="/assets/img/icon.png" alt="logo" />
+        </a>
+      </div>
+      <div class="navbar-menu-wrapper d-flex align-items-center">
+        <ul class="navbar-nav navbar-nav-right">
+          <li class="nav-item dropdown d-none d-xl-inline-block">
+            <a class="nav-link dropdown-toggle" id="UserDropdown" href="#" data-toggle="dropdown" aria-expanded="false">
+              <span class="profile-text">Hello, <%= username %> !</span>
+              <img class="img-xs rounded-circle" src="/assets/img/me.png" alt="Profile image">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right navbar-dropdown" aria-labelledby="UserDropdown">
+              <a class="dropdown-item mt-2" href="/settings">
+                Settings
+              </a>
+              <a class="dropdown-item" href="/logout">
+                Sign Out
+              </a>
+            </div>
+          </li>
+        </ul>
+        <button class="navbar-toggler navbar-toggler-right d-lg-none align-self-center" type="button" data-toggle="offcanvas">
+          <span class="mdi mdi-menu"></span>
+        </button>
+      </div>
+    </nav>
+    <div class="container-fluid page-body-wrapper">
+      <nav class="sidebar sidebar-offcanvas" id="sidebar">
+        <ul class="nav">
+          <li class="nav-item nav-profile">
+            <div class="nav-link">
+              <div class="user-wrapper">
+                <div class="profile-image">
+                  <img src="/assets/img/me.png" alt="profile image">
+                </div>
+                <div class="text-wrapper">
+                  <p class="profile-name"><%= username %></p>
+                  <div>
+                    <small class="designation text-muted">Student</small>
+                    <span class="status-indicator online"></span>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/dashboard">
+              <i class="menu-icon mdi mdi-collage"></i>
+              <span class="menu-title">Dashboard</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/notes">
+              <i class="menu-icon mdi mdi-file-multiple"></i>
+              <span class="menu-title">Notes</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/clubs">
+              <i class="menu-icon mdi mdi-account-multiple"></i>
+              <span class="menu-title">Clubs</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/events">
+              <i class="menu-icon mdi mdi-cards"></i>
+              <span class="menu-title">Events</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/lostandfound">
+              <i class="menu-icon mdi mdi-map-marker"></i>
+              <span class="menu-title">Lost & Found</span>
+            </a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="/settings">
+              <i class="menu-icon mdi mdi-tune"></i>
+              <span class="menu-title">Settings</span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="/logout">
+              <i class="menu-icon mdi mdi-logout"></i>
+              <span class="menu-title">Logout</span>
+            </a>
+          </li>
+        </ul>
+      </nav>
+      <div class="main-panel">
+        <div class="content-wrapper">
+			<h2>Settings</h2>
+          <div class="row">
+            <div class="col-md-6 grid-margin">
+              <div class="card">
+				<div class="card-header bg-success text-white">
+					Update Username
+				</div>
+                <div class="card-body">
+				  <form action="" id="updateUsername">
+					<div class="form-group">
+						<label for="username">Full Name</label>
+						<input type="text" class="form-control" id="username" value="<%= username %>">
+					</div>
+					<div class="form-group">
+						<label for="password">Password</label>
+						<input type="password" class="form-control" id="password">
+					</div>
+					<div class="form-group">
+						<button class="btn btn-warning" type="submit">Update Username</button>
+					</div>
+				  </form>
+                </div>
+              </div>
+            </div>
+            <div class="col-md-6 grid-margin stretch-card">
+              <div class="card">
+				<div class="card-header bg-danger text-white">
+					Update Password
+				</div>
+                <div class="card-body">
+				  <form action="" id="updatePassword">
+					<div class="form-group">
+						<label for="oldPassword">Old Password</label>
+						<input type="password" class="form-control" id="oldPassword">
+					</div>
+					<div class="form-group">
+						<label for="newPassword">New Password</label>
+						<input type="password" class="form-control" id="newPassword">
+					</div>
+					<div class="form-group">
+						<label for="repeatPassword">Repeat Password</label>
+						<input type="password" class="form-control" id="repeatPassword">
+					</div>
+					<div class="form-group">
+						<button class="btn btn-danger" type="submit">Update Password</button>
+					</div>
+				  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <footer class="footer">
+          <div class="container-fluid clearfix">
+            <span class="float-none float-sm-right d-block mt-1 mt-sm-0 text-center">
+				Made with <i class="mdi mdi-heart text-danger"></i> by <strong>Manikiran</strong> and <strong>Chandana</strong>
+            </span>
+          </div>
+        </footer>
+      </div>
+    </div>
+  </div>
+  <script src="/assets/libs/jquery/jquery-3.3.1.min.js"></script>
+  <script src="/assets/libs/toastr/toastr.min.js"></script>
+  <script src="/assets/js/vendor.bundle.js"></script>
+  <script src="/assets/js/vendor.bundle.addons.js"></script>
+  <script src="/assets/js/misc.js"></script>
+  <script src="/assets/js/settings.js"></script>
+</body>
+
+</html>

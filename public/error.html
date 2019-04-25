@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title><%= errcode %> - <%= errmsg %> | CollegeBuddy</title>
+		<link rel="stylesheet" href="/assets/css/error.css">
+		<link rel="shortcut icon" href="/assets/img/icon.png" />
+	</head>
+	<body>
+		<div class="logo">
+			<img src="/assets/img/logo-white.png">
+		</div>
+		<div class="container">
+			<div class="box">
+				<div class="col">
+					<h1><%= errcode %></h1>
+				</div>
+				<div class="col">
+					<h2>SORRY!</h2>
+					<h3><%= errmsg %></h3>
+				</div>
+			</div>
+		</div>
+		<footer>
+				<a href="javascript: history.go(-1)">Go Back</a>
+		</footer>
+	</body>
+</html>

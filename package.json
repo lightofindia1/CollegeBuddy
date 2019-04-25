@@ -1,0 +1,39 @@
+{
+  "name": "collegebuddy",
+  "version": "1.0.1",
+  "description": "A website for connecting the dots and gaps between students and college opportunities and problems",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/lightofindia1/CollegeBuddy.git"
+  },
+  "keywords": [
+    "college",
+    "buddy",
+    "help",
+    "connect",
+    "opportunities",
+    "problem",
+    "solving"
+  ],
+  "author": "Manikiran P <pmanikiranBTECH16@ced.alliance.edu.in> (https://www.manikiran.tk)",
+  "license": "GPL-3.0",
+  "bugs": {
+    "url": "https://github.com/lightofindia1/CollegeBuddy/issues"
+  },
+  "homepage": "https://github.com/lightofindia1/CollegeBuddy#readme",
+  "dependencies": {
+    "apixu": "github:apixu/apixu-nodejs",
+    "body-parser": "^1.18.3",
+    "cookie-parser": "^1.4.4",
+    "ejs": "^2.6.1",
+    "express": "^4.16.4",
+    "express-session": "^1.16.1",
+    "firebase": "^5.10.0",
+    "firebase-admin": "^7.3.0"
+  }
+}
